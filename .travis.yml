@@ -6,3 +6,19 @@ before_install:
     - docker build -t kshitijbahul/reactfrontend -f Dockerfile.dev . 
 script:
     - docker run -e CI=true kshitijbahul/reactfrontend npm run test
+#setting for Deployments
+deploy:
+    provider: elasticbeanstalk
+    region: "ap-south-1"
+    app: "fronend-dockerised"
+    env: "FronendDockerised-env"
+    bucket_name: "elasticbeanstalk-ap-south-1-524265004613"
+    #should be same as app name
+    bucket_path: "fronend-dockerised"
+    on:
+        branch: master
+    access_key_id: "$AWS_ACCESS_KEY"
+    secret_access_key: "$AWS_SECRET_KEY"
+        
+
+
