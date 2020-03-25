@@ -1,0 +1,26 @@
+version: '3'
+services: 
+    frontend:
+        # ideally we would have used build: .(look in the CWD)
+        # we split int into 2 parts 
+        # the context : i.e where to look for the file
+        # the filename : the name of the dockerfile 
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        ports: 
+            - "3000:3000"
+        volumes:
+            # Don't map /app/node_modules use it from the container
+            - /app/node_modules
+            # map the current folder with the /app folder in the file
+            - .:/app
+        stdin_open: true
+    frontendtest:
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        volumes: 
+            - /app/node_modules
+            - .:/app
+        command: ["npm","run","test"]
