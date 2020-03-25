@@ -1,0 +1,8 @@
+sudo: required
+services:
+    - docker
+#stuf to run before are scrips run
+before_install:
+    - docker build -t kshitijbahul/reactfrontend -f Dockerfile.dev . 
+script:
+    - docker run -e CI=true kshitijbahul/reactfrontend npm run test
